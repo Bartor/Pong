@@ -25,13 +25,13 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
     fun update() {
         ball.update()
         if (ball.x >= lPaddle.x && ball.x <= lPaddle.x + lPaddle.getWidth() && ball.y <= lPaddle.y + lPaddle.height && ball.y >= lPaddle.y) {
-            ball.randomizedBounce(true, 0.05f)
+            ball.randomizedBounce(true, 0.2f)
             ball.speedUp(1.005f)
         }
 
         if (ball.x + ball.getSize() >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.getWidth() && ball.y <= rPaddle.y + rPaddle.height && ball.y >= rPaddle.y) {
-            ball.randomizedBounce(true, 0.05f)
-            ball.speedUp(1.005f)
+            ball.randomizedBounce(true, 0.2f)
+            ball.speedUp(1.05f)
         }
 
         if (ball.x <= 0) {

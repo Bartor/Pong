@@ -34,15 +34,16 @@ class Ball(speed: Float, var x: Float, var y: Float) {
     }
 
     fun randomizedBounce(side: Boolean, random: Float) {
-        val normalizedSpeed = sqrt(xSpeed*xSpeed + ySpeed*ySpeed)
-        var angle = atan(xSpeed/ySpeed)
-        angle += (Random.nextFloat() % random) * 2*Math.PI.toFloat()
+        val r = Random.nextFloat()*(Math.pow(-1.0, Random.nextInt().toDouble())).toFloat() % random
+
+        println(r)
+
         if (side) {
-            xSpeed = - normalizedSpeed * sin(angle)
-            ySpeed = normalizedSpeed * cos(angle)
+            xSpeed *= -(1+r)*(1+r)
+            ySpeed *= (1-r)*(1-r)
         } else {
-            xSpeed = normalizedSpeed * sin(angle)
-            ySpeed = - normalizedSpeed * cos(angle)
+            xSpeed *= (1-r)*(1-r)
+            ySpeed *= -(1+r)*(1+r)
         }
     }
 
