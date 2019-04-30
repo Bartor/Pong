@@ -34,4 +34,8 @@ class Ball(private var speed: Float, var x : Float, var y: Float) {
     fun draw(canvas: Canvas) {
         canvas.drawOval(RectF(x, y, x + SIZE, y + SIZE), color)
     }
+
+    fun getSize() : Float {
+        return SIZE
+    }
 }

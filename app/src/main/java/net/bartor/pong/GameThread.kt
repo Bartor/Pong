@@ -1,7 +1,6 @@
 package net.bartor.pong
 
 import android.graphics.Canvas
-import android.media.MediaSync
 import android.view.SurfaceHolder
 import java.lang.Exception
 

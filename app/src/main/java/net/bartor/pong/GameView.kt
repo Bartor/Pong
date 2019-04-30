@@ -10,7 +10,7 @@ import net.bartor.pong.elements.Ball
 class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(context, attributeSet), SurfaceHolder.Callback {
     private val thread : GameThread
 
-    private val ball = Ball(10f, (height/2).toFloat(), (width/2).toFloat())
+    private val ball = Ball(10f, 0f, 0f)
 
     init {
         holder.addCallback(this)
@@ -19,8 +19,8 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
 
     fun update() {
         ball.update()
-        if (ball.x <= 0 || ball.x >= width) ball.bounce(true)
-        if (ball.y <= 0 || ball.y >= height) ball.bounce(false)
+        if (ball.x <= 0 || ball.x + ball.getSize()/2 >= width) ball.bounce(true)
+        if (ball.y <= 0 || ball.y + ball.getSize()/2 >= height) ball.bounce(false)
     }
 
     override fun draw(canvas: Canvas?) {
@@ -32,6 +32,8 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
     }
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
+        ball.y = height/2f
+        ball.x = width/2f
         thread.running = true
         thread.start()
     }
