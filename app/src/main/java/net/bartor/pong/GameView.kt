@@ -14,6 +14,7 @@ import net.bartor.pong.elements.Paddle
 class GameView(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback {
     private val thread: GameThread
+    private lateinit var callback : PointCounter
 
     private var ball = Ball(10f, 0f, 0f)
     private val lPaddle = Paddle(0f, 0f, 0f)
@@ -37,10 +38,12 @@ class GameView(context: Context) : SurfaceView(context),
         }
 
         if (ball.x <= 0) {
-
+            callback.onPointCount(true)
+            nextRound()
         }
         if (ball.x + ball.getSize() >= width) {
-
+            callback.onPointCount(false)
+            nextRound()
         }
         if (ball.y <= 0 || ball.y + ball.getSize() >= height) ball.bounce(false)
     }
@@ -92,4 +95,12 @@ class GameView(context: Context) : SurfaceView(context),
     }
 
     override fun surfaceChanged(p0: SurfaceHolder?, p1: Int, p2: Int, p3: Int) {}
+
+    fun setOnPointCounter(pointCounter: PointCounter) {
+        callback = pointCounter
+    }
+
+    interface PointCounter {
+        fun onPointCount(left: Boolean)
+    }
 }
