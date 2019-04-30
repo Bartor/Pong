@@ -9,11 +9,12 @@ import android.view.SurfaceView
 import net.bartor.pong.elements.Ball
 import net.bartor.pong.elements.Paddle
 
-class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(context, attributeSet), SurfaceHolder.Callback {
-    private val thread : GameThread
+class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(context, attributeSet),
+    SurfaceHolder.Callback {
+    private val thread: GameThread
 
     private val ball = Ball(10f, 0f, 0f)
-    private val lPaddle = Paddle(0f, 10f, 0f)
+    private val lPaddle = Paddle(0f, 0f, 0f)
     private val rPaddle = Paddle(0f, 0f, 0f)
 
     init {
@@ -23,6 +24,14 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
 
     fun update() {
         ball.update()
+        if (ball.x >= lPaddle.x && ball.x <= lPaddle.x + lPaddle.getWidth() && ball.y <= lPaddle.y + lPaddle.height && ball.y >= lPaddle.y) {
+            ball.bounce(true)
+        }
+
+        if (ball.x + ball.getSize() >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.getWidth() && ball.y <= rPaddle.y + rPaddle.height && ball.y >= rPaddle.y) {
+            ball.bounce(true)
+        }
+
         if (ball.x <= 0 || ball.x + ball.getSize() >= width) ball.bounce(true)
         if (ball.y <= 0 || ball.y + ball.getSize() >= height) ball.bounce(false)
     }
@@ -38,15 +47,16 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
     }
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
-        ball.y = height/2f
-        ball.x = width/2f
+        ball.y = height / 2f
+        ball.x = width / 2f
 
-        lPaddle.height = height/3f
-        rPaddle.height = height/3f
+        lPaddle.height = height / 3f
+        rPaddle.height = height / 3f
 
-        lPaddle.y = height/2f - lPaddle.height/2
-        rPaddle.y = height/2f - rPaddle.height/2
-        rPaddle.x = width - 10f - rPaddle.getWidth()
+        lPaddle.y = height / 2f - lPaddle.height / 2
+        lPaddle.x = width / 8f
+        rPaddle.y = height / 2f - rPaddle.height / 2
+        rPaddle.x = width - width / 8f - rPaddle.getWidth()
 
         thread.running = true
         thread.start()
@@ -54,10 +64,10 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         for (i in 0 until event!!.pointerCount) {
-            if (event.getX(i) < width/2f) {
-                lPaddle.y = event.getY(i) - lPaddle.height/2
+            if (event.getX(i) < width / 2f) {
+                lPaddle.y = event.getY(i) - lPaddle.height / 2
             } else {
-                rPaddle.y = event.getY(i) - rPaddle.height/2
+                rPaddle.y = event.getY(i) - rPaddle.height / 2
             }
         }
         return true

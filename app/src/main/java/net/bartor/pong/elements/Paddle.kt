@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 
-const val WIDTH = 20f
+const val WIDTH = 50f
 
 class Paddle(var height: Float, var x: Float, var y: Float) {
     private val color = Paint().also { it.setARGB(255, 0x0, 0x70, 0xff) }
