@@ -2,9 +2,8 @@ package net.bartor.pong
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.PorterDuff
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import net.bartor.pong.elements.Ball
@@ -51,6 +50,17 @@ class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(conte
 
         thread.running = true
         thread.start()
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        for (i in 0 until event!!.pointerCount) {
+            if (event.getX(i) < width/2f) {
+                lPaddle.y = event.getY(i) - lPaddle.height/2
+            } else {
+                rPaddle.y = event.getY(i) - rPaddle.height/2
+            }
+        }
+        return true
     }
 
     override fun surfaceDestroyed(p0: SurfaceHolder?) {
