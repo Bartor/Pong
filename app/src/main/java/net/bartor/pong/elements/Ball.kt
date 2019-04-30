@@ -12,7 +12,7 @@ import kotlin.random.Random
 const val SIZE = 40f
 
 class Ball(speed: Float, var x: Float, var y: Float) {
-    private val color = Paint().also { it.setARGB(255, 0x0, 0x70, 0xff) }
+    private val color = Paint().also { it.setARGB(255, 21, 101, 192) }
 
     private var xSpeed = 0f
     private var ySpeed = 0f
