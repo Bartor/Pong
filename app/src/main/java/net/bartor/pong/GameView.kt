@@ -2,6 +2,8 @@ package net.bartor.pong
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
@@ -9,7 +11,7 @@ import android.view.SurfaceView
 import net.bartor.pong.elements.Ball
 import net.bartor.pong.elements.Paddle
 
-class GameView(context: Context, attributeSet: AttributeSet) : SurfaceView(context, attributeSet),
+class GameView(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback {
     private val thread: GameThread
 
