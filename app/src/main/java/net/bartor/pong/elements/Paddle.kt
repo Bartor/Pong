@@ -13,7 +13,7 @@ class Paddle(var height: Float, var x: Float, var y: Float) {
         canvas.drawRect(RectF(x, y, x + WIDTH, y + height), color)
     }
 
-    fun getWidth() : Float {
+    fun getWidth(): Float {
         return WIDTH
     }
 }

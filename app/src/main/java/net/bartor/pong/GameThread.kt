@@ -5,17 +5,17 @@ import android.view.SurfaceHolder
 import java.lang.Exception
 
 class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView: GameView) : Thread() {
-    var running : Boolean = false
+    var running: Boolean = false
     private val fps = 60
-    private var canvas : Canvas? = null
+    private var canvas: Canvas? = null
 
     override fun run() {
-        var startTime : Long
-        var time : Long
-        var wait : Long
-        val target  = (1000 / fps).toLong()
+        var startTime: Long
+        var time: Long
+        var wait: Long
+        val target = (1000 / fps).toLong()
 
-        while(running) {
+        while (running) {
             startTime = System.nanoTime()
             canvas = null
 
