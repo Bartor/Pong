@@ -55,7 +55,7 @@ class GameView(context: Context, private val mode: GameMode, private val diff: G
         rPaddleMovement.update()
 
         if (mode == GameMode.BOT) bot.update().let {
-            lPaddleMovement.onInput(it.first, it.second)
+            lPaddleMovement.onInput(it.first, it.second  - rPaddle.height / 2f)
         }
     }
 
