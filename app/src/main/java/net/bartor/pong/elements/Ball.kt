@@ -14,8 +14,8 @@ const val SIZE = 40f
 class Ball(speed: Float, var x: Float, var y: Float) {
     private val color = Paint().also { it.setARGB(255, 40, 53, 143) }
 
-    private var xSpeed = 0f
-    private var ySpeed = 0f
+    var xSpeed = 0f
+    var ySpeed = 0f
 
     init {
         val angle = Random.nextFloat() % (2 * Math.PI.toFloat())

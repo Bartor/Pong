@@ -28,12 +28,12 @@ class GameView(context: Context) : SurfaceView(context),
 
     fun update() {
         ball.update()
-        if (ball.x >= lPaddle.getX() && ball.x <= lPaddle.getX() + lPaddle.getWidth() && ball.y <= lPaddle.getY() + lPaddle.height && ball.y >= lPaddle.getY()) {
+        if (collision(ball, lPaddle)) {
             ball.randomizedBounce(true, 0.2f)
-            ball.speedUp(1.005f)
+            ball.speedUp(1.05f)
         }
 
-        if (ball.x + ball.getSize() >= rPaddle.getX() && ball.x <= rPaddle.getX() + rPaddle.getWidth() && ball.y <= rPaddle.getY() + rPaddle.height && ball.y >= rPaddle.getY()) {
+        if (collision(ball, rPaddle)) {
             ball.randomizedBounce(true, 0.2f)
             ball.speedUp(1.05f)
         }
@@ -49,6 +49,12 @@ class GameView(context: Context) : SurfaceView(context),
         if (ball.y <= 0 || ball.y + ball.getSize() >= height) ball.bounce(false)
         lPaddleMovement.update()
         rPaddleMovement.update()
+    }
+
+    private fun collision(ball: Ball, paddle: Paddle) : Boolean {
+        val ballX = ball.x + ball.xSpeed + ball.getSize()
+        val ballY = ball.y + ball.ySpeed + ball.getSize()
+        return ballX > paddle.getX() && ballX < paddle.getX() + paddle.getWidth() && ballY > paddle.getY() && ballY < paddle.getY() + paddle.height
     }
 
     override fun draw(canvas: Canvas?) {
