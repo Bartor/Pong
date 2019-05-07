@@ -144,8 +144,8 @@ class GameView(context: Context, private val mode: GameMode, private val diff: G
 
     private fun getSpeedUp(): Float {
         return when (diff) {
-            GameDiff.EASY -> 1.005f
-            GameDiff.MEDIUM -> 1.01f
+            GameDiff.EASY -> 1.01f
+            GameDiff.MEDIUM -> 1.02f
             GameDiff.HARD -> 1.05f
         }
     }
