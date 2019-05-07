@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : AppCompatActivity(), GameView.PointCounter {
@@ -23,7 +22,7 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
         val game = GameView(this)
         game.setOnPointCounter(this)
         gameContainer.addView(game)
-        findViewById<TextView>(R.id.scoreText).text = "$lPoints:$rPoints"
+        scoreText.text = "$lPoints:$rPoints"
     }
 
     override fun onPointCount(left: Boolean) {
@@ -37,7 +36,7 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
         }
 
         runOnUiThread {
-            findViewById<TextView>(R.id.scoreText).text = "$lPoints:$rPoints"
+            scoreText.text = "$lPoints:$rPoints"
         }
     }
 }
