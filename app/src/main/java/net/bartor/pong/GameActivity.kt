@@ -14,6 +14,8 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
     private var rPoints = 0
 
     private var points = 0
+    private var top = 0
+
     private lateinit var prefs : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,12 +28,15 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
         prefs = getPreferences(Context.MODE_PRIVATE)
         lPoints = prefs.getInt("l", 0)
         rPoints = prefs.getInt("r", 0)
-        points = prefs.getInt("p", 0)
+        top = prefs.getInt("t", 0)
 
         val game = GameView(this, mode, diff)
         game.setOnPointCounter(this)
         gameContainer.addView(game)
-        scoreText.text = "$lPoints:$rPoints"
+        scoreText.text = when(mode) {
+            GameMode.SOLO -> "$points\r\nTop: $top"
+            else -> "$lPoints:$rPoints"
+        }
     }
 
     override fun onPointCount(left: Boolean) {
@@ -48,20 +53,26 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
             runOnUiThread {
                 scoreText.text = "$lPoints:$rPoints"
             }
+        } else {
+            points = 0
+            runOnUiThread {
+                scoreText.text = "$points\r\nTop: $top"
+            }
         }
     }
 
     override fun onBounce() {
         if (mode == GameMode.SOLO) {
-            points++
-
-            with(prefs.edit()) {
-                putInt("p", points)
-                apply()
+            if (++points > top)  {
+                top = points
+                with(prefs.edit()) {
+                    putInt("t", points)
+                    apply()
+                }
             }
 
             runOnUiThread {
-                scoreText.text = "$"
+                scoreText.text = "$points\r\nTop: $top"
             }
         }
     }
