@@ -32,13 +32,13 @@ class GameView(context: Context, private val mode: GameMode, private val diff: G
         ball.update()
         if (collision(ball, lPaddle)) {
             ball.randomizedBounce(true, 0.2f)
-            ball.speedUp(1.05f)
+            ball.speedUp(getSpeedUp())
             callback.onBounce()
         }
 
         if (collision(ball, rPaddle)) {
             ball.randomizedBounce(true, 0.2f)
-            ball.speedUp(1.05f)
+            ball.speedUp(getSpeedUp())
             callback.onBounce()
         }
 
@@ -139,6 +139,14 @@ class GameView(context: Context, private val mode: GameMode, private val diff: G
             GameDiff.EASY -> height / 2f
             GameDiff.MEDIUM -> height / 3f
             GameDiff.HARD -> height / 4f
+        }
+    }
+
+    private fun getSpeedUp(): Float {
+        return when (diff) {
+            GameDiff.EASY -> 1.005f
+            GameDiff.MEDIUM -> 1.01f
+            GameDiff.HARD -> 1.05f
         }
     }
 }
