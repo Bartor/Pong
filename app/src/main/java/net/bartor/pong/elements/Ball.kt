@@ -3,22 +3,19 @@ package net.bartor.pong.elements
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
-import kotlin.math.atan
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 import kotlin.random.Random
 
 const val SIZE = 40f
 
-class Ball(speed: Float, var x: Float, var y: Float) {
+class Ball(private var speed: Float, var x: Float, var y: Float) {
     private val color = Paint().also { it.setARGB(255, 40, 53, 143) }
 
     var xSpeed = 0f
     var ySpeed = 0f
 
     init {
-        val angle = Random.nextFloat() % (2 * Math.PI.toFloat())
+        val angle = 1/2f*Math.PI.toFloat() + (if (Random.nextBoolean()) -1 else +1)*(Random.nextFloat() % 1/3*Math.PI.toFloat()) + (if (Random.nextBoolean()) Math.PI.toFloat() else 0f)
         xSpeed = speed * sin(angle)
         ySpeed = speed * cos(angle)
     }
@@ -34,16 +31,14 @@ class Ball(speed: Float, var x: Float, var y: Float) {
     }
 
     fun randomizedBounce(side: Boolean, random: Float) {
-        val r = Random.nextFloat()*(Math.pow(-1.0, Random.nextInt().toDouble())).toFloat() % random
-
-        println(r)
+        val angle = 1/2f*Math.PI.toFloat() + (if (Random.nextBoolean()) -1 else +1)*(Random.nextFloat() % random*Math.PI.toFloat()) + (if (xSpeed < 0) Math.PI.toFloat() else 0f)
 
         if (side) {
-            xSpeed *= -(1+r)*(1+r)
-            ySpeed *= (1-r)*(1-r)
+            xSpeed = -speed*sin(angle)
+            ySpeed = speed*cos(angle)
         } else {
-            xSpeed *= (1-r)*(1-r)
-            ySpeed *= -(1+r)*(1+r)
+            xSpeed *= speed*sin(angle)
+            ySpeed *= -speed*cos(angle)
         }
     }
 
@@ -56,6 +51,7 @@ class Ball(speed: Float, var x: Float, var y: Float) {
     }
 
     fun speedUp(factor: Float) {
+        speed *= factor
         xSpeed *= factor
         ySpeed *= factor
     }
