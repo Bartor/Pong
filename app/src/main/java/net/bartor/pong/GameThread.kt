@@ -43,7 +43,7 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
             try {
                 sleep(wait)
             } catch (e: Exception) {
-                e.printStackTrace()
+//                e.printStackTrace()
             }
         }
     }
