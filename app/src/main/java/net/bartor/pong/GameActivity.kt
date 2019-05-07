@@ -26,8 +26,6 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
         mode = intent?.getSerializableExtra("mode") as GameMode
 
         prefs = getPreferences(Context.MODE_PRIVATE)
-        lPoints = prefs.getInt("l", 0)
-        rPoints = prefs.getInt("r", 0)
         top = prefs.getInt("t", 0)
 
         val game = GameView(this, mode, diff)
@@ -43,12 +41,6 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
         if (mode != GameMode.SOLO) {
             if (left) rPoints++
             else lPoints++
-
-            with(prefs.edit()) {
-                putInt("l", lPoints)
-                putInt("r", rPoints)
-                apply()
-            }
 
             runOnUiThread {
                 scoreText.text = "$lPoints:$rPoints"
