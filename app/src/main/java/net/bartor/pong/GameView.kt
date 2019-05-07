@@ -76,9 +76,9 @@ class GameView(context: Context) : SurfaceView(context),
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         for (i in 0 until event!!.pointerCount) {
             if (event.getX(i) < width / 2f) {
-                lPaddleMovement.onInput(event.getX(i), event.getY(i))
+                lPaddleMovement.onInput(event.getX(i), event.getY(i) - lPaddle.height/2f)
             } else {
-                rPaddleMovement.onInput(event.getX(i), event.getY(i))
+                rPaddleMovement.onInput(event.getX(i), event.getY(i) - rPaddle.height/2f)
             }
         }
         return true
