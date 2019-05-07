@@ -10,7 +10,7 @@ import net.bartor.pong.elements.Paddle
 import net.bartor.pong.models.MovementLimist
 import net.bartor.pong.models.QuadraticMovement
 
-class GameView(context: Context) : SurfaceView(context),
+class GameView(context: Context, private val mode: GameMode, private val diff: GameDiff) : SurfaceView(context),
     SurfaceHolder.Callback {
     private val thread: GameThread
     private lateinit var callback : PointCounter
@@ -31,11 +31,13 @@ class GameView(context: Context) : SurfaceView(context),
         if (collision(ball, lPaddle)) {
             ball.randomizedBounce(true, 0.2f)
             ball.speedUp(1.05f)
+            callback.onBounce()
         }
 
         if (collision(ball, rPaddle)) {
             ball.randomizedBounce(true, 0.2f)
             ball.speedUp(1.05f)
+            callback.onBounce()
         }
 
         if (ball.x <= 0) {
@@ -114,5 +116,18 @@ class GameView(context: Context) : SurfaceView(context),
 
     interface PointCounter {
         fun onPointCount(left: Boolean)
+        fun onBounce()
     }
+}
+
+enum class GameMode {
+    SOLO,
+    VS,
+    BOT
+}
+
+enum class GameDiff {
+    EASY,
+    MEDIUM,
+    HARD
 }

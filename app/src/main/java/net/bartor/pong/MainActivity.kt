@@ -11,9 +11,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        playButton.setOnClickListener {
+        soloButton.setOnClickListener {
             val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra("diff", getDiff())
+            intent.putExtra("mode", GameMode.SOLO)
             startActivity(intent)
+        }
+
+        vsButton.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra("diff", getDiff())
+            intent.putExtra("mode", GameMode.VS)
+            startActivity(intent)
+        }
+
+        botButton.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra("diff", getDiff())
+            intent.putExtra("mode", GameMode.BOT)
+            startActivity(intent)
+        }
+    }
+
+    private fun getDiff() : GameDiff {
+        return when (radios.checkedRadioButtonId) {
+            R.id.easyButton -> GameDiff.EASY
+            R.id.mediumButton -> GameDiff.MEDIUM
+            R.id.hardButton -> GameDiff.HARD
+            else -> GameDiff.MEDIUM
         }
     }
 }

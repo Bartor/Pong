@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity" android:background="@android:color/background_dark">
-    <Button
-            android:text="play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/playButton" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:fontFamily="monospace"
-            android:textAllCaps="true" android:textAlignment="center" android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/background_dark"/>
-</android.support.constraint.ConstraintLayout>
+        tools:context=".MainActivity" android:background="@android:color/background_dark"
+        android:orientation="vertical" android:gravity="center">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1">
+        <Button
+                android:text="solo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/soloButton" android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"/>
+        <Button
+                android:text="vs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/vsButton" android:layout_weight="1"
+                android:background="@android:color/black" android:textColor="@color/colorPrimaryDark"/>
+        <Button
+                android:text="bot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/botButton" android:layout_weight="1"
+                android:background="@color/colorPrimaryDark"/>
+    </LinearLayout>
+    <RadioGroup
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/radios">
+        <RadioButton
+                android:text="easy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/easyButton" android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark" android:buttonTint="@color/colorPrimaryDark"
+                android:textAlignment="center"/>
+        <RadioButton
+                android:text="medium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/mediumButton" android:layout_weight="1"
+                android:background="@color/colorPrimaryDark" android:textAlignment="center" android:checked="true"
+        />
+        <RadioButton
+                android:text="hard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/hardButton" android:layout_weight="1"
+                android:textColor="@color/colorPrimaryDark" android:buttonTint="@color/colorPrimaryDark"
+                android:textAlignment="center"/>
+    </RadioGroup>
+</LinearLayout>
