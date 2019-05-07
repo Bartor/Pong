@@ -32,7 +32,7 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
                     try {
                         surfaceHolder.unlockCanvasAndPost(canvas)
                     } catch (e: Exception) {
-                        e.printStackTrace()
+//                        e.printStackTrace()
                     }
                 }
             }
