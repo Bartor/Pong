@@ -7,6 +7,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import net.bartor.pong.elements.Ball
 import net.bartor.pong.elements.Paddle
+import net.bartor.pong.models.MovementLimist
 import net.bartor.pong.models.QuadraticMovement
 
 class GameView(context: Context) : SurfaceView(context),
@@ -63,6 +64,9 @@ class GameView(context: Context) : SurfaceView(context),
     override fun surfaceCreated(p0: SurfaceHolder?) {
         lPaddle = Paddle(height / 3f, width / 8f, height/2f)
         rPaddle = Paddle(height / 3f, 7 * width / 8f, height/2f)
+
+        lPaddle.setLimits(MovementLimist(0f, 0f, 0f, height.toFloat()))
+        rPaddle.setLimits(MovementLimist(0f, 0f, 0f, height.toFloat()))
 
         lPaddleMovement = QuadraticMovement(lPaddle, 100f/height, 0.3f)
         rPaddleMovement = QuadraticMovement(rPaddle, 100f/height, 0.3f)
