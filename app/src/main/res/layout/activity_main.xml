@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/mediumButton" android:layout_weight="1"
                 android:background="@color/colorPrimaryDark" android:textAlignment="center" android:checked="true"
-        />
+                android:buttonTint="@android:color/background_dark"/>
         <RadioButton
                 android:text="hard"
                 android:layout_width="match_parent"
