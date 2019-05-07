@@ -26,7 +26,11 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
         mode = intent?.getSerializableExtra("mode") as GameMode
 
         prefs = getPreferences(Context.MODE_PRIVATE)
-        top = prefs.getInt("t", 0)
+        top = prefs.getInt(when(diff) {
+            GameDiff.EASY -> "te"
+            GameDiff.MEDIUM -> "tm"
+            GameDiff.HARD -> "th"
+        }, 0)
 
         val game = GameView(this, mode, diff)
         game.setOnPointCounter(this)
@@ -58,7 +62,11 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
             if (++points > top)  {
                 top = points
                 with(prefs.edit()) {
-                    putInt("t", points)
+                    putInt(when(diff) {
+                        GameDiff.EASY -> "te"
+                        GameDiff.MEDIUM -> "tm"
+                        GameDiff.HARD -> "th"
+                    }, points)
                     apply()
                 }
             }
