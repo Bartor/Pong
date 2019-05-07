@@ -2,9 +2,6 @@ package net.bartor.pong
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
-import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -17,11 +14,11 @@ class GameView(context: Context) : SurfaceView(context),
     private val thread: GameThread
     private lateinit var callback : PointCounter
 
-    private var ball = Ball(10f, 0f, 0f)
-    private val lPaddle = Paddle(0f, 0f, 0f)
-    private val rPaddle = Paddle(0f, 0f, 0f)
-    private val lPaddleMovement = QuadraticMovement(lPaddle)
-    private val rPaddleMovement = QuadraticMovement(rPaddle)
+    private lateinit var ball : Ball
+    private lateinit var lPaddle : Paddle
+    private lateinit var rPaddle : Paddle
+    private lateinit var lPaddleMovement : QuadraticMovement
+    private lateinit var rPaddleMovement : QuadraticMovement
 
     init {
         holder.addCallback(this)
@@ -49,6 +46,8 @@ class GameView(context: Context) : SurfaceView(context),
             nextRound()
         }
         if (ball.y <= 0 || ball.y + ball.getSize() >= height) ball.bounce(false)
+        lPaddleMovement.update()
+        rPaddleMovement.update()
     }
 
     override fun draw(canvas: Canvas?) {
@@ -62,11 +61,11 @@ class GameView(context: Context) : SurfaceView(context),
     }
 
     override fun surfaceCreated(p0: SurfaceHolder?) {
-        lPaddle.height = height / 3f
-        rPaddle.height = height / 3f
+        lPaddle = Paddle(height / 3f, width / 8f, height/2f)
+        rPaddle = Paddle(height / 3f, 7 * width / 8f, height/2f)
 
-        lPaddle.updatePosition(width / 8f, lPaddle.getY())
-        rPaddle.updatePosition(width - width / 8f - rPaddle.getWidth(), rPaddle.getY())
+        lPaddleMovement = QuadraticMovement(lPaddle, 100f/height)
+        rPaddleMovement = QuadraticMovement(rPaddle, 100f/height)
 
         nextRound()
 
@@ -77,20 +76,16 @@ class GameView(context: Context) : SurfaceView(context),
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         for (i in 0 until event!!.pointerCount) {
             if (event.getX(i) < width / 2f) {
-                lPaddleMovement.onInput(event.x, event.y)
+                lPaddleMovement.onInput(event.getX(i), event.getY(i))
             } else {
-                rPaddleMovement.onInput(event.x, event.y)
+                rPaddleMovement.onInput(event.getX(i), event.getY(i))
             }
         }
         return true
     }
 
     private fun nextRound() {
-        ball.y = height / 2f
-        ball.x = width / 2f
-
-        rPaddle.updatePosition(rPaddle.getX(), height / 2f - rPaddle.height / 2)
-        lPaddle.updatePosition(lPaddle.getX(), height / 2f - rPaddle.height / 2)
+        ball = Ball(20f, width/2f, height/2f)
     }
 
     override fun surfaceDestroyed(p0: SurfaceHolder?) {

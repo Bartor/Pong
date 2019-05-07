@@ -11,7 +11,7 @@ class Paddle(var height: Float, private var x: Float, private var y: Float) : Mo
     private val color = Paint().also { it.setARGB(255, 40, 53, 143) }
 
     override fun updatePosition(x: Float, y: Float) {
-        this.y = y
+        this.y = y - height/2f
     }
 
     override fun getX(): Float {
@@ -19,11 +19,11 @@ class Paddle(var height: Float, private var x: Float, private var y: Float) : Mo
     }
 
     override fun getY(): Float {
-        return y
+        return y + height/2f
     }
 
     fun draw(canvas: Canvas) {
-        canvas.drawRect(RectF(x, y, x + WIDTH, y + height), color)
+        canvas.drawRect(RectF(x, y + height/2f, x + WIDTH, y + 1.5f*height), color)
     }
 
     fun getWidth(): Float {

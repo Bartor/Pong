@@ -1,11 +1,16 @@
 package net.bartor.pong.models
 
-class QuadraticMovement(private val part: MovablePart) : MovementInterface {
+import kotlin.math.abs
+import kotlin.math.sqrt
+
+class QuadraticMovement(private val part: MovablePart, private val coefficient: Float) : MovementInterface {
     private var xAcc = 0f
     private var yAcc = 0f
     override fun onInput(x: Float, y: Float) {
-        xAcc = (x - part.getX())*(x - part.getX()) * if (x > part.getX()) 1 else -1
-        yAcc = (y - part.getY())*(y - part.getY()) * if (y > part.getY()) 1 else -1
+        xAcc = (x - part.getX()) * coefficient
+        yAcc = (y - part.getY()) * coefficient
+
+        println("$xAcc $yAcc")
     }
 
     override fun update() {
