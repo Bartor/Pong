@@ -64,8 +64,11 @@ class GameView(context: Context) : SurfaceView(context),
         lPaddle = Paddle(height / 3f, width / 8f, height/2f)
         rPaddle = Paddle(height / 3f, 7 * width / 8f, height/2f)
 
-        lPaddleMovement = QuadraticMovement(lPaddle, 100f/height)
-        rPaddleMovement = QuadraticMovement(rPaddle, 100f/height)
+        lPaddleMovement = QuadraticMovement(lPaddle, 100f/height, 0.3f)
+        rPaddleMovement = QuadraticMovement(rPaddle, 100f/height, 0.3f)
+        //set last positions to middle
+        lPaddleMovement.onInput(0f, height/2f - lPaddle.height/2f)
+        rPaddleMovement.onInput(0f, height/2f - rPaddle.height/2f)
 
         nextRound()
 
