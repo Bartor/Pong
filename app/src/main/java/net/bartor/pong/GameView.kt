@@ -14,9 +14,9 @@ import net.bartor.pong.elements.Paddle
 class GameView(context: Context) : SurfaceView(context),
     SurfaceHolder.Callback {
     private val thread: GameThread
-    private lateinit var callback : PointCounter
+    private lateinit var callback: PointCounter
 
-    private var ball = Ball(10f, 0f, 0f)
+    private var ball = Ball(20f, 0f, 0f)
     private val lPaddle = Paddle(0f, 0f, 0f)
     private val rPaddle = Paddle(0f, 0f, 0f)
 
@@ -29,12 +29,12 @@ class GameView(context: Context) : SurfaceView(context),
         ball.update()
         if (ball.x >= lPaddle.x && ball.x <= lPaddle.x + lPaddle.getWidth() && ball.y <= lPaddle.y + lPaddle.height && ball.y >= lPaddle.y) {
             ball.randomizedBounce(true, 0.2f)
-            ball.speedUp(1.005f)
+            ball.speedUp(1.15f)
         }
 
         if (ball.x + ball.getSize() >= rPaddle.x && ball.x <= rPaddle.x + rPaddle.getWidth() && ball.y <= rPaddle.y + rPaddle.height && ball.y >= rPaddle.y) {
             ball.randomizedBounce(true, 0.2f)
-            ball.speedUp(1.05f)
+            ball.speedUp(1.1f)
         }
 
         if (ball.x <= 0) {
@@ -65,6 +65,9 @@ class GameView(context: Context) : SurfaceView(context),
         lPaddle.x = width / 8f
         rPaddle.x = width - width / 8f - rPaddle.getWidth()
 
+        lPaddle.y = height/2f - lPaddle.height/2
+        rPaddle.y = height/2f - rPaddle.height/2
+
         nextRound()
 
         thread.running = true
@@ -83,10 +86,7 @@ class GameView(context: Context) : SurfaceView(context),
     }
 
     private fun nextRound() {
-        ball.y = height / 2f
-        ball.x = width / 2f
-        rPaddle.y = height / 2f - rPaddle.height / 2
-        lPaddle.y = height / 2f - lPaddle.height / 2
+        ball = Ball(20f, width / 2f, height / 2f)
     }
 
     override fun surfaceDestroyed(p0: SurfaceHolder?) {

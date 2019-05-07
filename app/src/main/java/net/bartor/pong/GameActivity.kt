@@ -2,6 +2,7 @@ package net.bartor.pong
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_game.*
 
 class GameActivity : AppCompatActivity(), GameView.PointCounter {
@@ -14,14 +15,15 @@ class GameActivity : AppCompatActivity(), GameView.PointCounter {
 
         val game = GameView(this)
         game.setOnPointCounter(this)
-        game.elevation = -10f
-        container.addView(game)
+        gameContainer.addView(game)
     }
 
     override fun onPointCount(left: Boolean) {
-        if (left) lPoints++
-        else rPoints++
+        if (left) rPoints++
+        else lPoints++
 
-        scoreText.setText("${lPoints} : ${rPoints}")
+        runOnUiThread {
+            findViewById<TextView>(R.id.scoreText).text = "$lPoints:$rPoints"
+        }
     }
 }
