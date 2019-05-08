@@ -127,6 +127,7 @@ class GameView(context: Context, private val mode: GameMode, private val diff: G
     }
 
     private fun getDiffSpeed(): Float {
+        if (mode == GameMode.BOT) return 20f
         return when (diff) {
             GameDiff.EASY -> 15f
             GameDiff.MEDIUM -> 20f
@@ -135,6 +136,7 @@ class GameView(context: Context, private val mode: GameMode, private val diff: G
     }
 
     private fun getDiffHeight(): Float {
+        if (mode == GameMode.BOT) return height/3f
         return when (diff) {
             GameDiff.EASY -> height / 2f
             GameDiff.MEDIUM -> height / 3f

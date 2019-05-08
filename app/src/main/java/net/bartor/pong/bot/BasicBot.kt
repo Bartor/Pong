@@ -18,8 +18,8 @@ class BasicBot(private var ball: Ball, private val diff: GameDiff) {
 
     private fun getDiffIterationSize(): Int {
         return when (diff) {
-            GameDiff.EASY -> 10
-            GameDiff.MEDIUM -> 5
+            GameDiff.EASY -> 30
+            GameDiff.MEDIUM -> 10
             GameDiff.HARD -> 1
         }
     }
